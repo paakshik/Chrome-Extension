@@ -1,32 +1,57 @@
 {
-    "name": "Nft Prize Locker",
-    "description" : "An extension for nft lovers",
-    "version": "1.0",
-    "manifest_version": 3,
-    "action": {
-      "default_popup": "index.html",
-      "default_title": "Open Nft Prize Locker"
-    },
-    "icons": {
-      "16": "logo192.png",
-      "48": "logo192.png",
-      "128": "logo192.png"
-    },
-    "//background": {
-      "service_worker": "./static/js/background.js"
-    },
-    "//content_scripts": [
-      {
-        "matches": ["*://www.youtube.com/*"],
-        "js": ["./static/js/content.js"]
-      }
-    ],
-    "permissions": [
-      "activeTab",
-      "tabs", 
-      "webNavigation",
-      "storage"
-    ],
-    "optional_permissions": []
-  }
-  
+  "manifest_version": 3,
+  "name": "Guardium",
+  "short_name": "Guardium",
+  "description": "A secure browser-based password manager with autofill support",
+  "version": "1.0.0",
+  "action": {
+    "default_title": "Open Guardium",
+    "default_popup": "index.html"
+  },
+  "icons": {
+    "16": "assets/icons/icon16.png",
+    "32": "assets/icons/icon32.png",
+    "48": "assets/icons/icon48.png",
+    "128": "assets/icons/icon128.png"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["contentScript.js"],
+      "run_at": "document_end",
+      "all_frames": true
+    }
+  ],
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "storage",
+    "scripting",
+    "alarms",
+    "notifications"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [ "assets/icons/*", "injected/*.js" ],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "options_page": "options.html",
+  "commands": {
+    "open-guardium": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+G",
+        "mac": "Command+Shift+G"
+      },
+      "description": "Open Guardium popup"
+    }
+  },
+  "minimum_chrome_version": "114"
+}
